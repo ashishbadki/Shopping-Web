@@ -1,32 +1,21 @@
-import React from 'react'
-import {FcDeleteDatabase} from 'react-icons/fc'
-import { useDispatch } from 'react-redux'
-import { remove } from '../redux/Slices/cartSlice'; 
-import { toast } from 'react-toastify';
-function CartItem({item , itemIndex}) {
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { remove } from '../redux/Slices/cartSlice';
+import './CartItem.css'; // <-- Add this line
+
+function CartItem({ item }) {
   const dispatch = useDispatch();
 
-  const removeFromCart = () => {
-    dispatch(remove(item.id));
-    toast.error("Item Removed");
-  }
   return (
-    <div>
+    <div className="cart-item">
+      <img src={item.image} alt={item.title} />
       <div>
-        <img src={item.image}></img>
-      </div>
-      <div>
-        <h1>{item.title}</h1>
-        <p>{item.description}</p>
-      </div>
-      <div>
-        <p>{item.price}</p>
-      </div>
-      <div>
-        <FcDeleteDatabase onClick={removeFromCart}></FcDeleteDatabase>
+        <h4>{item.title}</h4>
+        <p>${item.price}</p>
+        <button onClick={() => dispatch(remove(item.id))}>Remove</button>
       </div>
     </div>
-  )
+  );
 }
 
-export default CartItem
+export default CartItem;
